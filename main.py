@@ -3,12 +3,12 @@ import json
 import pandas as pd
 
 # 🔑 Replace with your Fireworks API key
-API_KEY = "fw_3Ze6VZiWKsBQLrAtUnmu4FCc"
+API_KEY = 
 
-# Fireworks endpoint
+
 url = "https://api.fireworks.ai/inference/v1/chat/completions"
 
-# Function to fetch historical price data from CoinGecko
+
 def get_historical_prices(symbol="bitcoin", days=90):
     cg_url = f"https://api.coingecko.com/api/v3/coins/{symbol}/market_chart?vs_currency=usd&days={days}"
     r = requests.get(cg_url).json()
@@ -20,7 +20,7 @@ def get_historical_prices(symbol="bitcoin", days=90):
     df.set_index("date", inplace=True)
     return df
 
-# Simple moving average backtest
+
 def backtest_ma(df, short=10, long=30):
     df["SMA_short"] = df["price"].rolling(short).mean()
     df["SMA_long"] = df["price"].rolling(long).mean()
@@ -30,7 +30,7 @@ def backtest_ma(df, short=10, long=30):
     df["strategy"] = df["signal"].shift(1) * df["returns"]
     return df
 
-# Run backtest + get Dobby’s analysis
+
 def run_backtest(symbol="bitcoin", days=180):
     try:
         df = get_historical_prices(symbol, days)
@@ -88,7 +88,7 @@ Backtest results for {symbol.upper()} (last {days} days):
         print(f"❌ Error: {e}")
 
 # -------------------------
-# 🧑‍💻 Interactive Loop
+#Interactive Loop
 # -------------------------
 while True:
     coin = input("\n👉 Enter a crypto coin (e.g., bitcoin, ethereum, solana) or 'quit' to exit: ").lower().strip()
@@ -99,3 +99,4 @@ while True:
     if not days.isdigit():
         days = "180"
     run_backtest(coin, int(days))
+
